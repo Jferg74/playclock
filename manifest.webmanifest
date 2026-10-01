@@ -1,0 +1,9 @@
+{
+  "name": "Ref Clock",
+  "short_name": "Ref Clock",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#000000",
+  "theme_color": "#000000",
+  "description": "Glanceable football play clock and timeout timer for Meta Ray-Ban Display."
+}

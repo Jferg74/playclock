@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <meta name="theme-color" content="#000000" />
+  <title>Ref Clock</title>
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="app" aria-label="Football timer">
+    <section id="picker" class="screen">
+      <div class="eyebrow">REF CLOCK</div>
+      <div class="grid">
+        <button data-seconds="40" data-mode="PLAY">40<span>PLAY</span></button>
+        <button data-seconds="25" data-mode="PLAY">25<span>PLAY</span></button>
+        <button data-seconds="60" data-mode="TIMEOUT">60<span>TIMEOUT</span></button>
+        <button data-seconds="30" data-mode="TIMEOUT">30<span>TIMEOUT</span></button>
+      </div>
+      <div class="hint">← → ↑ ↓ select · ENTER start</div>
+    </section>
+
+    <section id="clock" class="screen hidden" aria-live="polite">
+      <div id="mode" class="mode">PLAY 40</div>
+      <div id="time" class="time">40</div>
+      <div id="status" class="status">RUNNING</div>
+      <div class="hint">ENTER pause/resume · ← reset · ↓ clocks</div>
+    </section>
+  </main>
+  <script src="app.js"></script>
+</body>
+</html>

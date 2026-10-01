@@ -1,0 +1,19 @@
+*{box-sizing:border-box}
+html,body{margin:0;width:100%;height:100%;background:#000;color:#fff;font-family:Arial,Helvetica,sans-serif}
+body{display:grid;place-items:center;overflow:hidden}
+.app{width:min(100vw,600px);height:min(100vh,600px);display:grid;place-items:center}
+.screen{width:100%;height:100%;padding:46px;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.hidden{display:none}
+.eyebrow,.mode{font-weight:800;letter-spacing:.16em;font-size:30px}
+.grid{margin-top:34px;display:grid;grid-template-columns:1fr 1fr;gap:18px;width:100%}
+button{min-height:150px;border:4px solid #fff;border-radius:28px;background:#000;color:#fff;font-size:76px;font-weight:900;line-height:.8}
+button span{display:block;font-size:20px;letter-spacing:.12em;margin-top:17px}
+button.focused{outline:9px solid #fff;outline-offset:4px}
+.time{font-size:270px;line-height:.95;font-weight:900;font-variant-numeric:tabular-nums;margin:22px 0}
+.status{font-size:28px;font-weight:800;letter-spacing:.12em}
+.hint{margin-top:30px;font-size:18px;font-weight:700;opacity:.9;text-align:center}
+.warning .time{animation:pulse .7s infinite alternate}
+.expired .time{animation:flash .35s 5 alternate}
+@keyframes pulse{to{transform:scale(1.07)}}
+@keyframes flash{to{opacity:.15}}
+@media(max-width:480px){.screen{padding:24px}.time{font-size:48vw}.grid{gap:12px}button{min-height:120px;font-size:58px}}
