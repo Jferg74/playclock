@@ -9,11 +9,14 @@ body{display:grid;place-items:center;overflow:hidden}
 button{min-height:150px;border:4px solid #fff;border-radius:28px;background:#000;color:#fff;font-size:76px;font-weight:900;line-height:.8}
 button span{display:block;font-size:20px;letter-spacing:.12em;margin-top:17px}
 button.focused{outline:9px solid #fff;outline-offset:4px}
-.time{font-size:270px;line-height:.95;font-weight:900;font-variant-numeric:tabular-nums;margin:22px 0}
-.status{font-size:28px;font-weight:800;letter-spacing:.12em}
+.clock-screen{padding:28px 32px 24px;justify-content:space-between}
+.clock-screen .mode{margin-top:14px;font-size:32px}
+.time{font-size:360px;line-height:.78;font-weight:900;font-variant-numeric:tabular-nums;margin:0;letter-spacing:-.06em}
+.status{font-size:30px;font-weight:800;letter-spacing:.12em}
 .hint{margin-top:30px;font-size:18px;font-weight:700;opacity:.9;text-align:center}
+.clock-hint{margin:0 0 8px;font-size:16px;opacity:.72}
 .warning .time{animation:pulse .7s infinite alternate}
 .expired .time{animation:flash .35s 5 alternate}
 @keyframes pulse{to{transform:scale(1.07)}}
 @keyframes flash{to{opacity:.15}}
-@media(max-width:480px){.screen{padding:24px}.time{font-size:48vw}.grid{gap:12px}button{min-height:120px;font-size:58px}}
+@media(max-width:480px){.screen{padding:24px}.clock-screen{padding:20px}.time{font-size:58vw}.grid{gap:12px}button{min-height:120px;font-size:58px}}

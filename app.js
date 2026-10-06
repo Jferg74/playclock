@@ -5,7 +5,7 @@ const modeEl=document.querySelector("#mode");
 const statusEl=document.querySelector("#status");
 const buttons=[...document.querySelectorAll("button[data-seconds]")];
 
-let focus=0, timer=null, endAt=0, remaining=40, initial=40, mode="PLAY", running=false;
+let focus=0, timer=null, endAt=0, remaining=40, initial=40, mode="PLAY", running=false, lastShown=null;
 
 function paintFocus(){
   buttons.forEach((b,i)=>b.classList.toggle("focused",i===focus));
@@ -17,9 +17,9 @@ function showPicker(){
   paintFocus();
 }
 function startPreset(seconds,label){
-  initial=remaining=seconds; mode=label;
+  initial=remaining=seconds; mode=label; lastShown=null;
   picker.classList.add("hidden"); clock.classList.remove("hidden");
-  modeEl.textContent=`${mode} ${initial}`;
+  modeEl.textContent=mode==="PLAY" ? "PLAY CLOCK" : "TIMEOUT";
   clock.classList.remove("warning","expired");
   start();
 }
@@ -27,19 +27,19 @@ function start(){
   if(remaining<=0) remaining=initial;
   endAt=performance.now()+remaining*1000;
   running=true; statusEl.textContent="RUNNING";
-  stopInterval();
-  tick();
-  timer=setInterval(tick,100);
+  stopInterval(); tick(); timer=setInterval(tick,100);
 }
 function pause(){
   if(!running) return start();
   remaining=Math.max(0,Math.ceil((endAt-performance.now())/1000));
   running=false; stopInterval(); statusEl.textContent="PAUSED";
 }
-function reset(){
-  stopInterval(); running=false; remaining=initial;
-  timeEl.textContent=remaining; statusEl.textContent="READY";
+function restart(){
+  stopInterval();
+  remaining=initial;
+  lastShown=null;
   clock.classList.remove("warning","expired");
+  start();
 }
 function stopInterval(){ if(timer){clearInterval(timer);timer=null;} }
 function beep(ms=90,freq=880){
@@ -50,14 +50,13 @@ function beep(ms=90,freq=880){
     o.start();setTimeout(()=>{o.stop();ac.close()},ms);
   }catch(e){}
 }
-let lastShown=null;
 function tick(){
   remaining=Math.max(0,Math.ceil((endAt-performance.now())/1000));
   timeEl.textContent=remaining;
   clock.classList.toggle("warning",remaining<=5 && remaining>0);
   if(remaining!==lastShown){
-    const alertPoints = mode==="PLAY" ? [10,5,0] : [15,5,0];
-    if(alertPoints.includes(remaining)) beep(remaining===0?300:100, remaining===0?440:880);
+    const alertPoints=mode==="PLAY"?[10,5,0]:[15,5,0];
+    if(alertPoints.includes(remaining)) beep(remaining===0?300:100,remaining===0?440:880);
     lastShown=remaining;
   }
   if(remaining<=0){
@@ -77,7 +76,7 @@ document.addEventListener("keydown",e=>{
     paintFocus();
   }else{
     if(k==="Enter") running?pause():start();
-    if(k==="ArrowLeft") reset();
+    if(k==="ArrowLeft") restart();
     if(k==="ArrowDown") showPicker();
   }
   if(["ArrowRight","ArrowLeft","ArrowDown","ArrowUp","Enter"].includes(k)) e.preventDefault();
